@@ -224,3 +224,70 @@ pub fn cmd_get_ai_settings() -> Result<AiSettings, StudioError> {
 pub fn cmd_save_ai_settings(settings: AiSettings) -> Result<(), StudioError> {
     save_ai_settings(settings)
 }
+
+// Omni-Channel Repurposing Engine
+#[tauri::command]
+pub async fn cmd_fetch_youtube_content(url: String) -> Result<String, StudioError> {
+    tokio::task::spawn_blocking(move || castudio_core::repurposing::fetch_youtube_content(&url))
+        .await
+        .map_err(|e| StudioError::Ai(e.to_string()))?
+}
+
+#[tauri::command]
+pub fn cmd_create_campaign(
+    input: castudio_core::repurposing::CreateCampaignInput,
+) -> Result<castudio_core::repurposing::ContentCampaign, StudioError> {
+    castudio_core::repurposing::create_campaign(input)
+}
+
+#[tauri::command]
+pub fn cmd_get_campaign(
+    campaign_id: String,
+) -> Result<castudio_core::repurposing::ContentCampaign, StudioError> {
+    castudio_core::repurposing::get_campaign(&campaign_id)
+}
+
+#[tauri::command]
+pub fn cmd_list_campaigns(
+    project_id: Option<String>,
+) -> Result<Vec<castudio_core::repurposing::ContentCampaign>, StudioError> {
+    castudio_core::repurposing::list_campaigns(project_id.as_deref())
+}
+
+#[tauri::command]
+pub async fn cmd_run_repurpose(
+    input: castudio_core::repurposing::RunRepurposeInput,
+) -> Result<castudio_core::repurposing::ContentCampaign, StudioError> {
+    tokio::task::spawn_blocking(move || castudio_core::repurposing::run_repurposing_engine(input))
+        .await
+        .map_err(|e| StudioError::Ai(e.to_string()))?
+}
+
+#[tauri::command]
+pub fn cmd_update_asset(
+    asset_id: String,
+    content: String,
+) -> Result<castudio_core::repurposing::ContentAsset, StudioError> {
+    castudio_core::repurposing::update_asset(&asset_id, &content)
+}
+
+#[tauri::command]
+pub fn cmd_set_asset_status(
+    asset_id: String,
+    status: String,
+) -> Result<castudio_core::repurposing::ContentAsset, StudioError> {
+    castudio_core::repurposing::set_asset_status(&asset_id, &status)
+}
+
+#[tauri::command]
+pub fn cmd_queue_campaign(
+    campaign_id: String,
+) -> Result<castudio_core::repurposing::ContentCampaign, StudioError> {
+    castudio_core::repurposing::queue_entire_campaign(&campaign_id)
+}
+
+#[tauri::command]
+pub fn cmd_delete_campaign(campaign_id: String) -> Result<(), StudioError> {
+    castudio_core::repurposing::delete_campaign(&campaign_id)
+}
+

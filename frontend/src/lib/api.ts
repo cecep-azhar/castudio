@@ -160,3 +160,64 @@ export const deletePrompt = (id: string) => invoke<void>("cmd_delete_prompt", { 
 export const getAiSettings = () => invoke<AiSettings>("cmd_get_ai_settings");
 export const saveAiSettings = (settings: AiSettings) =>
   invoke<void>("cmd_save_ai_settings", { settings });
+
+// Omni-Channel Content Repurposing Engine
+export interface ContentAsset {
+  id: string;
+  campaign_id: string;
+  channel: "blog" | "shorts" | "carousel" | "tweets" | "newsletter" | string;
+  title: string;
+  content: string;
+  meta: string;
+  status: "draft" | "approved" | "queued" | string;
+  created_at: number;
+  updated_at: number;
+}
+
+export interface ContentCampaign {
+  id: string;
+  project_id: string | null;
+  title: string;
+  source_type: "markdown" | "raw_text" | "youtube_url" | string;
+  source_content: string;
+  source_url: string | null;
+  status: "draft" | "queued" | "published" | string;
+  created_at: number;
+  updated_at: number;
+  assets: ContentAsset[];
+}
+
+export const fetchYoutubeContent = (url: string) =>
+  invoke<string>("cmd_fetch_youtube_content", { url });
+
+export const createCampaign = (input: {
+  project_id?: string;
+  title: string;
+  source_type: string;
+  source_content: string;
+  source_url?: string;
+}) => invoke<ContentCampaign>("cmd_create_campaign", { input });
+
+export const getCampaign = (campaignId: string) =>
+  invoke<ContentCampaign>("cmd_get_campaign", { campaignId });
+
+export const listCampaigns = (projectId?: string) =>
+  invoke<ContentCampaign[]>("cmd_list_campaigns", { projectId });
+
+export const runRepurpose = (input: {
+  campaign_id: string;
+  selected_channels?: string[];
+}) => invoke<ContentCampaign>("cmd_run_repurpose", { input });
+
+export const updateAsset = (assetId: string, content: string) =>
+  invoke<ContentAsset>("cmd_update_asset", { assetId, content });
+
+export const setAssetStatus = (assetId: string, status: string) =>
+  invoke<ContentAsset>("cmd_set_asset_status", { assetId, status });
+
+export const queueCampaign = (campaignId: string) =>
+  invoke<ContentCampaign>("cmd_queue_campaign", { campaignId });
+
+export const deleteCampaign = (campaignId: string) =>
+  invoke<void>("cmd_delete_campaign", { campaignId });
+

@@ -56,6 +56,16 @@ pub fn run() {
             // Settings
             commands::cmd_get_ai_settings,
             commands::cmd_save_ai_settings,
+            // Omni-Channel Repurposing Engine
+            commands::cmd_fetch_youtube_content,
+            commands::cmd_create_campaign,
+            commands::cmd_get_campaign,
+            commands::cmd_list_campaigns,
+            commands::cmd_run_repurpose,
+            commands::cmd_update_asset,
+            commands::cmd_set_asset_status,
+            commands::cmd_queue_campaign,
+            commands::cmd_delete_campaign,
         ])
         .run(tauri::generate_context!())
         .expect("error while running CAStudio application");

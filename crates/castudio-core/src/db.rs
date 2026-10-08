@@ -108,8 +108,36 @@ fn init_schema(conn: &Connection) -> Result<(), StudioError> {
             created_at INTEGER NOT NULL
         );
 
+        CREATE TABLE IF NOT EXISTS content_campaigns (
+            id TEXT PRIMARY KEY,
+            project_id TEXT,
+            title TEXT NOT NULL,
+            source_type TEXT NOT NULL,
+            source_content TEXT NOT NULL,
+            source_url TEXT,
+            status TEXT NOT NULL DEFAULT 'draft',
+            created_at INTEGER NOT NULL,
+            updated_at INTEGER NOT NULL,
+            FOREIGN KEY (project_id) REFERENCES projects(id) ON DELETE SET NULL
+        );
+
+        CREATE TABLE IF NOT EXISTS content_assets (
+            id TEXT PRIMARY KEY,
+            campaign_id TEXT NOT NULL,
+            channel TEXT NOT NULL,
+            title TEXT NOT NULL,
+            content TEXT NOT NULL,
+            meta TEXT NOT NULL DEFAULT '{}',
+            status TEXT NOT NULL DEFAULT 'draft',
+            created_at INTEGER NOT NULL,
+            updated_at INTEGER NOT NULL,
+            FOREIGN KEY (campaign_id) REFERENCES content_campaigns(id) ON DELETE CASCADE
+        );
+
         CREATE INDEX IF NOT EXISTS idx_documents_project ON documents(project_id);
         CREATE INDEX IF NOT EXISTS idx_blocks_document ON blocks(document_id, position);
+        CREATE INDEX IF NOT EXISTS idx_campaigns_project ON content_campaigns(project_id);
+        CREATE INDEX IF NOT EXISTS idx_assets_campaign ON content_assets(campaign_id);
         "#,
     )?;
 

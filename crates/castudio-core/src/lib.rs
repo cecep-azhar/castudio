@@ -7,6 +7,7 @@ pub mod paths;
 pub mod prefs;
 pub mod project;
 pub mod prompt_studio;
+pub mod repurposing;
 pub mod templates;
 
 pub use error::StudioError;
