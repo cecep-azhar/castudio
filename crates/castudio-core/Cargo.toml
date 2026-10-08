@@ -19,6 +19,7 @@ chrono.workspace = true
 uuid.workspace = true
 rusqlite.workspace = true
 tokio.workspace = true
+axum.workspace = true
 ureq.workspace = true
 parking_lot.workspace = true
 zip = { version = "2.2", default-features = false, features = ["deflate"] }

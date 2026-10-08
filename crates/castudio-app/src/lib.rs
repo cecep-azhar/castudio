@@ -66,7 +66,21 @@ pub fn run() {
             commands::cmd_set_asset_status,
             commands::cmd_queue_campaign,
             commands::cmd_delete_campaign,
+            // Automation, Drip Scheduling & Dispatcher Commands
+            commands::cmd_create_schedule,
+            commands::cmd_create_drip_batch,
+            commands::cmd_list_schedules,
+            commands::cmd_cancel_schedule,
+            commands::cmd_trigger_instant_dispatch,
+            commands::cmd_save_publishing_channel,
+            commands::cmd_list_publishing_channels,
+            commands::cmd_test_channel_connection,
         ])
+        .setup(|_app| {
+            // Start Tokio cron worker and local Axum inbound listener on 127.0.0.1:20130
+            castudio_core::automation::init_automation_subsystem();
+            Ok(())
+        })
         .run(tauri::generate_context!())
         .expect("error while running CAStudio application");
 }

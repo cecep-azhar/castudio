@@ -18,6 +18,9 @@ pub enum StudioError {
     #[error("CAS-EXP-001: Export error: {0}")]
     Export(String),
 
+    #[error("CAS-AUT-001: Automation dispatch error: {0}")]
+    Dispatch(String),
+
     #[error("CAS-IO-001: IO error: {0}")]
     Io(#[from] std::io::Error),
 }

@@ -1,4 +1,5 @@
 pub mod ai;
+pub mod automation;
 pub mod db;
 pub mod document;
 pub mod error;

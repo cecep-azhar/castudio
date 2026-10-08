@@ -138,6 +138,41 @@ fn init_schema(conn: &Connection) -> Result<(), StudioError> {
         CREATE INDEX IF NOT EXISTS idx_blocks_document ON blocks(document_id, position);
         CREATE INDEX IF NOT EXISTS idx_campaigns_project ON content_campaigns(project_id);
         CREATE INDEX IF NOT EXISTS idx_assets_campaign ON content_assets(campaign_id);
+
+        CREATE TABLE IF NOT EXISTS publishing_channels (
+            id TEXT PRIMARY KEY,
+            name TEXT NOT NULL,
+            channel_type TEXT NOT NULL,
+            is_active INTEGER NOT NULL DEFAULT 1,
+            endpoint_url TEXT,
+            credentials_json TEXT NOT NULL DEFAULT '{}',
+            config_json TEXT NOT NULL DEFAULT '{}',
+            created_at INTEGER NOT NULL,
+            updated_at INTEGER NOT NULL
+        );
+
+        CREATE TABLE IF NOT EXISTS content_schedules (
+            id TEXT PRIMARY KEY,
+            campaign_id TEXT NOT NULL,
+            asset_id TEXT NOT NULL,
+            channel TEXT NOT NULL,
+            target_platform TEXT NOT NULL,
+            scheduled_at INTEGER NOT NULL,
+            status TEXT NOT NULL DEFAULT 'queued',
+            retry_count INTEGER NOT NULL DEFAULT 0,
+            max_retries INTEGER NOT NULL DEFAULT 3,
+            last_error TEXT,
+            published_url TEXT,
+            tracking_token TEXT UNIQUE NOT NULL,
+            channel_config_json TEXT NOT NULL DEFAULT '{}',
+            created_at INTEGER NOT NULL,
+            updated_at INTEGER NOT NULL,
+            FOREIGN KEY (campaign_id) REFERENCES content_campaigns(id) ON DELETE CASCADE,
+            FOREIGN KEY (asset_id) REFERENCES content_assets(id) ON DELETE CASCADE
+        );
+
+        CREATE INDEX IF NOT EXISTS idx_schedules_poll ON content_schedules(status, scheduled_at);
+        CREATE INDEX IF NOT EXISTS idx_schedules_campaign ON content_schedules(campaign_id);
         "#,
     )?;
 

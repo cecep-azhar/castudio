@@ -17,10 +17,11 @@
   import EbookStudio from "$lib/components/EbookStudio.svelte";
   import InstagramStudio from "$lib/components/InstagramStudio.svelte";
   import RepurposingStudio from "$lib/components/RepurposingStudio.svelte";
+  import AutomationStudio from "$lib/components/AutomationStudio.svelte";
   import PitchdeckStudio from "$lib/components/PitchdeckStudio.svelte";
   import PromptStudio from "$lib/components/PromptStudio.svelte";
 
-  type NavSection = "projects" | "builder" | "ebook" | "instagram" | "repurpose" | "pitchdeck" | "prompts";
+  type NavSection = "projects" | "builder" | "ebook" | "instagram" | "repurpose" | "automation" | "pitchdeck" | "prompts";
 
   let activeSection = $state<NavSection>("projects");
   let projects = $state<Project[]>([]);
@@ -195,6 +196,14 @@
     </button>
 
     <button
+      onclick={() => (activeSection = "automation")}
+      title="Content Automation & Drip Dispatcher"
+      class="w-11 h-11 rounded-xl flex items-center justify-center transition-all {activeSection === 'automation' ? 'bg-[#8B5CF6] text-white shadow-lg shadow-[#8B5CF6]/30' : 'text-[#9CA3AF] hover:bg-[#18181F] hover:text-white'}"
+    >
+      <span class="text-lg">🛰️</span>
+    </button>
+
+    <button
       onclick={() => (activeSection = "pitchdeck")}
       title="Pitchdeck & SPK Closing"
       class="w-11 h-11 rounded-xl flex items-center justify-center transition-all {activeSection === 'pitchdeck' ? 'bg-[#8B5CF6] text-white shadow-lg shadow-[#8B5CF6]/30' : 'text-[#9CA3AF] hover:bg-[#18181F] hover:text-white'}"
@@ -345,6 +354,8 @@
     <InstagramStudio projectId={activeProject?.id} />
   {:else if activeSection === "repurpose"}
     <RepurposingStudio projectId={activeProject?.id} />
+  {:else if activeSection === "automation"}
+    <AutomationStudio projectId={activeProject?.id} />
   {:else if activeSection === "pitchdeck"}
     <PitchdeckStudio projectId={activeProject?.id} />
   {:else if activeSection === "prompts"}

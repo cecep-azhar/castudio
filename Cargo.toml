@@ -20,9 +20,10 @@ directories = "5"
 chrono = "0.4"
 uuid = { version = "1.16", features = ["v4", "v7"] }
 rusqlite = { version = "0.32", features = ["bundled"] }
-tokio = { version = "1", features = ["rt-multi-thread", "macros", "sync", "time", "process", "io-util"] }
+tokio = { version = "1", features = ["rt-multi-thread", "macros", "sync", "time", "process", "io-util", "net"] }
 ureq = { version = "3", features = ["json"] }
 parking_lot = "0.12"
+axum = { version = "0.8", default-features = false, features = ["tokio", "json", "http1"] }
 
 [profile.release]
 opt-level = "z"

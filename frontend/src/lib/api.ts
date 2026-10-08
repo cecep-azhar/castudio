@@ -221,3 +221,89 @@ export const queueCampaign = (campaignId: string) =>
 export const deleteCampaign = (campaignId: string) =>
   invoke<void>("cmd_delete_campaign", { campaignId });
 
+// Content Automation, Drip Scheduling & Webhook Dispatcher
+export interface ContentSchedule {
+  id: string;
+  campaign_id: string;
+  asset_id: string;
+  channel: string;
+  target_platform: string;
+  scheduled_at: number;
+  status: "queued" | "dispatching" | "published" | "failed" | "cancelled" | string;
+  retry_count: number;
+  max_retries: number;
+  last_error: string | null;
+  published_url: string | null;
+  tracking_token: string;
+  channel_config_json: string;
+  created_at: number;
+  updated_at: number;
+}
+
+export interface PublishingChannel {
+  id: string;
+  name: string;
+  channel_type: string;
+  is_active: boolean;
+  endpoint_url: string | null;
+  credentials_json: string;
+  config_json: string;
+  created_at: number;
+  updated_at: number;
+}
+
+export interface PublishResult {
+  success: boolean;
+  published_url: string | null;
+  message: string;
+  external_id: string | null;
+}
+
+export const createSchedule = (input: {
+  campaign_id: string;
+  asset_id: string;
+  channel: string;
+  target_platform: string;
+  scheduled_at: number;
+  channel_config_json?: string;
+}) => invoke<ContentSchedule>("cmd_create_schedule", { input });
+
+export const createDripBatch = (input: {
+  campaign_id: string;
+  preset: string;
+  start_time: number;
+  default_platform: string;
+}) => invoke<ContentSchedule[]>("cmd_create_drip_batch", { input });
+
+export const listSchedules = (campaignId?: string, statusFilter?: string) =>
+  invoke<ContentSchedule[]>("cmd_list_schedules", {
+    campaignId,
+    statusFilter,
+  });
+
+export const cancelSchedule = (id: string) =>
+  invoke<void>("cmd_cancel_schedule", { id });
+
+export const triggerInstantDispatch = (id: string) =>
+  invoke<ContentSchedule>("cmd_trigger_instant_dispatch", { id });
+
+export const savePublishingChannel = (channel: PublishingChannel) =>
+  invoke<PublishingChannel>("cmd_save_publishing_channel", { channel });
+
+export const listPublishingChannels = () =>
+  invoke<PublishingChannel[]>("cmd_list_publishing_channels");
+
+export const testChannelConnection = (
+  targetPlatform: string,
+  endpointUrl: string,
+  credentialsJson: string,
+  configJson: string
+) =>
+  invoke<PublishResult>("cmd_test_channel_connection", {
+    targetPlatform,
+    endpointUrl,
+    credentialsJson,
+    configJson,
+  });
+
+

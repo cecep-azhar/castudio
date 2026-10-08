@@ -291,3 +291,73 @@ pub fn cmd_delete_campaign(campaign_id: String) -> Result<(), StudioError> {
     castudio_core::repurposing::delete_campaign(&campaign_id)
 }
 
+// Automation, Drip Scheduling & Dispatcher Commands
+#[tauri::command]
+pub fn cmd_create_schedule(
+    input: castudio_core::automation::CreateScheduleInput,
+) -> Result<castudio_core::automation::ContentSchedule, StudioError> {
+    castudio_core::automation::create_schedule(input)
+}
+
+#[tauri::command]
+pub fn cmd_create_drip_batch(
+    input: castudio_core::automation::CreateDripBatchInput,
+) -> Result<Vec<castudio_core::automation::ContentSchedule>, StudioError> {
+    castudio_core::automation::create_drip_batch(input)
+}
+
+#[tauri::command]
+pub fn cmd_list_schedules(
+    campaign_id: Option<String>,
+    status_filter: Option<String>,
+) -> Result<Vec<castudio_core::automation::ContentSchedule>, StudioError> {
+    castudio_core::automation::list_schedules(campaign_id.as_deref(), status_filter.as_deref())
+}
+
+#[tauri::command]
+pub fn cmd_cancel_schedule(id: String) -> Result<(), StudioError> {
+    castudio_core::automation::cancel_schedule(&id)
+}
+
+#[tauri::command]
+pub async fn cmd_trigger_instant_dispatch(
+    id: String,
+) -> Result<castudio_core::automation::ContentSchedule, StudioError> {
+    castudio_core::automation::trigger_instant_dispatch(&id).await
+}
+
+#[tauri::command]
+pub fn cmd_save_publishing_channel(
+    channel: castudio_core::automation::PublishingChannel,
+) -> Result<castudio_core::automation::PublishingChannel, StudioError> {
+    castudio_core::automation::save_publishing_channel(channel)
+}
+
+#[tauri::command]
+pub fn cmd_list_publishing_channels(
+) -> Result<Vec<castudio_core::automation::PublishingChannel>, StudioError> {
+    castudio_core::automation::list_publishing_channels()
+}
+
+#[tauri::command]
+pub fn cmd_test_channel_connection(
+    target_platform: String,
+    endpoint_url: String,
+    credentials_json: String,
+    config_json: String,
+) -> Result<castudio_core::automation::PublishResult, StudioError> {
+    castudio_core::automation::dispatch_to_platform(
+        &target_platform,
+        &endpoint_url,
+        &credentials_json,
+        &config_json,
+        "Test Ping dari CAStudio Automation",
+        "Koneksi teruji sukses dari modul CAStudio Omni-Channel Content Dispatcher.",
+        "test_cmp",
+        "test_ch",
+        chrono::Utc::now().timestamp(),
+        "trk_test_ping",
+    )
+}
+
+

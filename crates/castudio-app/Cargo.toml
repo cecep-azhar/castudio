@@ -18,6 +18,7 @@ castudio-core = { path = "../castudio-core" }
 tauri = { version = "2", features = [] }
 serde.workspace = true
 serde_json.workspace = true
+chrono.workspace = true
 tokio.workspace = true
 parking_lot.workspace = true
 
