@@ -1,0 +1,109 @@
+[app]
+name = "CAStudio"
+slug = "castudio"
+bundle_id = "com.fathforce.castudio"
+version = "0.1.0"
+accent_color = "violet"
+error_prefix = "CAS"
+description = "Autonomous Content Engineering Studio — Books, Content, Social, Omni-Repurposing & Automation"
+brand = "Fathforce"
+
+[window]
+title = "CAStudio — Autonomous Content Engineering Studio"
+width = 1360
+height = 880
+min_width = 960
+min_height = 640
+
+[security]
+master_password_required = false
+profile_pin_enabled = false
+
+[modules]
+sample_slice_enabled = true
+ai_assistant_enabled = true
+pro_licensing_enabled = true
+updater_enabled = true
+crash_reporting_enabled = true
+backup_restore_enabled = true
+repurposing_engine_enabled = true
+automation_dispatcher_enabled = true
+
+[roles]
+default_role = "owner"
+allowed_roles = ["owner", "partner", "member"]
+
+[[menus]]
+key = "projects"
+label = "Proyek & Dokumen"
+href = "/"
+icon = "folder"
+description = "Manajemen Proyek & Project Bible"
+
+[[menus]]
+key = "content"
+label = "Content Builder"
+href = "/content"
+icon = "file-text"
+description = "Editor Dokumen Berbasis Blok Modular"
+
+[[menus]]
+key = "instagram"
+label = "Instagram Suite"
+href = "/instagram"
+icon = "instagram"
+description = "Generator Carousel & Reels Naskah Pendek"
+
+[[menus]]
+key = "ebook"
+label = "E-Book Studio"
+href = "/ebook"
+icon = "book"
+description = "Penyusunan Bab E-Book & Ekspor EPUB/HTML"
+
+[[menus]]
+key = "pitchdeck"
+label = "Pitchdeck & SPK"
+href = "/pitchdeck"
+icon = "presentation"
+description = "Slide Presentasi Pitchdeck & Dokumen SPK"
+
+[[menus]]
+key = "repurpose"
+label = "Omni-Repurpose"
+href = "/repurpose"
+icon = "repeat"
+description = "Repurposing 1 Sumber ke 5 Format Distribusi"
+
+[[menus]]
+key = "automation"
+label = "Automation & Drip"
+href = "/automation"
+icon = "send"
+description = "Drip Publishing, Tokio Cron & n8n Dispatcher"
+
+[[menus]]
+key = "prompt_studio"
+label = "Prompt Studio"
+href = "/prompt-studio"
+icon = "sparkles"
+description = "Laboratorium Prompt & Manajemen Template"
+
+[[menus]]
+key = "settings"
+label = "Pengaturan"
+href = "/settings"
+icon = "settings"
+description = "Konfigurasi AI Provider & Kunci Lisensi"
+
+[billing]
+enabled = true
+product_code = "CASTUDIO"
+gcc_base_url = "https://gcc.cecepazhar.com"
+offline_days = 7
+refresh_hours = 6
+currencies = ["IDR", "USD"]
+
+[[billing.public_keys]]
+kid = "gcc-2026-10"
+ed25519 = "O8+tQ5qQ/pQpP9P9p9p9P9P9p9P9P9P9p9P9P9P9P9M="
