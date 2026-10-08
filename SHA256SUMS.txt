@@ -1,0 +1,2 @@
+c94fe0335677a4efa1881736d2435a7c4d66942e9c99148b286ea80c57591dc3  castudio-v0.1.0-linux-x86_64.tar.gz
+1114d9baab06dfb64b3a7b192edd9e40dba922ef89afcf65ddfb7192c755fba5  target/release/castudio-app
