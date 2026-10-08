@@ -15,11 +15,17 @@
 >
   <!-- Logo & Title -->
   <div class="flex items-center gap-2.5">
-    <div class="w-5 h-5 rounded-md bg-gradient-to-br from-[#8B5CF6] to-[#06B6D4] flex items-center justify-center shadow-[0_0_10px_rgba(139,92,246,0.5)]">
-      <svg class="w-3.5 h-3.5 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-        <polygon points="12 2 2 7 12 12 22 7 12 2" />
-        <polyline points="2 17 12 22 22 17" />
-        <polyline points="2 12 12 17 22 12" />
+    <div class="w-5 h-5 rounded-md bg-[#0A0A0C] border border-[#8B5CF6]/40 flex items-center justify-center shadow-[0_0_10px_rgba(139,92,246,0.3)]">
+      <svg class="w-3.5 h-3.5" viewBox="0 0 512 512" fill="none">
+        <defs>
+          <linearGradient id="symbolGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#C084FC" />
+            <stop offset="100%" stop-color="#8B5CF6" />
+          </linearGradient>
+        </defs>
+        <polygon points="256,92 396,256 256,420 116,256" stroke="url(#symbolGrad)" stroke-width="28" stroke-linejoin="round" stroke-linecap="round"/>
+        <line x1="256" y1="92" x2="256" y2="420" stroke="#C084FC" stroke-width="28" stroke-linecap="round"/>
+        <line x1="116" y1="256" x2="396" y2="256" stroke="#A855F7" stroke-width="28" stroke-linecap="round"/>
       </svg>
     </div>
     <span class="font-bold tracking-wider text-white text-sm">CASTUDIO</span>
