@@ -1,0 +1,14 @@
+/target
+/dist
+/dist-release
+node_modules
+.DS_Store
+*.apk
+*.rpm
+*.deb
+*.AppImage
+frontend/build
+frontend/.svelte-kit
+.env
+.env.*
+!.env.example

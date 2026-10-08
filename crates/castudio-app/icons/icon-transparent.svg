@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <linearGradient id="symbolGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#C084FC" />
+      <stop offset="100%" stop-color="#8B5CF6" />
+    </linearGradient>
+  </defs>
+  <!-- Main Symbol Transparent -->
+  <g fill="none">
+    <polygon points="256,92 396,256 256,420 116,256"
+             stroke="url(#symbolGrad)" stroke-width="28" stroke-linejoin="round" stroke-linecap="round"/>
+    <line x1="256" y1="92" x2="256" y2="420" stroke="#C084FC" stroke-width="28" stroke-linecap="round"/>
+    <line x1="116" y1="256" x2="396" y2="256" stroke="#A855F7" stroke-width="28" stroke-linecap="round"/>
+  </g>
+</svg>
