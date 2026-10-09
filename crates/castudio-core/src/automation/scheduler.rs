@@ -101,7 +101,13 @@ pub fn start_cron_worker_if_needed() {
         return;
     }
 
-    tokio::spawn(async move {
+    let Ok(handle) = tokio::runtime::Handle::try_current() else {
+        eprintln!("[CAStudio Cron] No Tokio runtime handle active, skipping background worker start.");
+        CRON_RUNNING.store(false, Ordering::SeqCst);
+        return;
+    };
+
+    handle.spawn(async move {
         eprintln!("[CAStudio Cron] Background scheduler worker started (interval: 60s).");
         tokio::time::sleep(Duration::from_secs(5)).await;
 
