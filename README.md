@@ -1,6 +1,6 @@
 # CAStudio — Autonomous Content Engineering Studio
 
-[![Release](https://img.shields.io/badge/release-v0.1.0-8b5cf6.svg)](https://github.com/cecep-azhar/castudio)
+[![Release](https://img.shields.io/badge/release-v0.1.0-8b5cf6.svg)](https://github.com/cecepazhar/castudio)
 [![License](https://img.shields.io/badge/license-Proprietary-blue.svg)]()
 [![Platform](https://img.shields.io/badge/platform-Linux%20|%20Windows%20|%20macOS-green.svg)]()
 [![CADS](https://img.shields.io/badge/CADS-v1.0%20Compliant-purple.svg)]()
