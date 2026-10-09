@@ -36,7 +36,13 @@ pub fn start_inbound_listener_if_needed() {
         return; // Already running
     }
 
-    tokio::spawn(async move {
+    let Ok(handle) = tokio::runtime::Handle::try_current() else {
+        eprintln!("[CAStudio Inbound] No Tokio runtime handle active, skipping listener start.");
+        LISTENER_RUNNING.store(false, Ordering::SeqCst);
+        return;
+    };
+
+    handle.spawn(async move {
         let app = Router::new()
             .route("/health", get(health_handler))
             .route("/api/v1/webhook/n8n-status", post(n8n_status_handler))
