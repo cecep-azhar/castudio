@@ -23,4 +23,7 @@ export default defineConfig(() => ({
       ignored: ["**/crates/**"],
     },
   },
+  build: {
+    target: ["chrome61", "es2018"],
+  },
 }));
